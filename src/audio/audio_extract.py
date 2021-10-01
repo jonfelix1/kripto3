@@ -48,17 +48,17 @@ class Extractor:
 
         if encrypted:
             sc = StreamCipher()
-            # print(message)
-            # self.message_string = sc.manual_decrypt(self.key, message)
-            self.message_string = message
+            self.message_string = sc.manual_decrypt(self.key, message)
         else:
             self.message_string = message
 
     def parse_message(self):
-        message_info = self.message_string.split("[[")
+        # print(self.message_string)
+        message_info = self.message_string.split("$")
 
         self.message_length = int(message_info[0])
         self.extension = message_info[1]
+        self.message = message_info[2]
 
     def get_secret_message(self):
         init = len(str(self.message_length)) + len(str(self.extension)) + 2

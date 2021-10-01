@@ -97,5 +97,10 @@ class StreamCipher:
 if __name__ == '__main__':
     sc = StreamCipher()
 
-    print(sc.file_encrypt("plaintext.txt", "not-so-random-key"))
-    print(sc.file_decrypt("ciphertext.txt", "not-so-random-key"))
+    a = sc.manual_encrypt('key','lalalala')
+    print(a) 
+    print(sc.manual_decrypt('key',a)) 
+       
+
+    # print(sc.file_encrypt("plaintext.txt", "not-so-random-key"))
+    # print(sc.file_decrypt("ciphertext.txt", "not-so-random-key"))

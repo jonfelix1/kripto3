@@ -61,10 +61,11 @@ class Inserter:
     def insert_message(self, encrypt=False, randomize=False):
         self.seed = self.calc_seed()
 
-        self.encrypt_message(encrypt, self.key)
+        
         message_length = str(len(self.message) + len(self.extension) + 2)
 
-        self.message_string = message_length + '[[' + self.extension + '[[' + self.message
+        self.message_string = message_length + '$' + self.extension + '$' + self.message
+        self.encrypt_message(encrypt, self.key)
 
         if 0.9 * len(self.frame) // 8 < len(self.message_string):
             raise ValueError("Ukuran pesan terlalu besar untuk audio")
@@ -80,7 +81,7 @@ class Inserter:
 
 if __name__ == "__main__":
     insert = Inserter('../../sample/audio/suichan-wa-waarukunai-yo-nee.wav', 'text.txt', 'hoshimachi')
-    frame_modified = insert.insert_message(encrypt=True,randomize=False)
+    frame_modified = insert.insert_message(encrypt=True, randomize=False)
 
     outfile_name = 'tes.wav'
     outfile = File(outfile_name)
