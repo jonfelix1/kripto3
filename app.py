@@ -9,198 +9,288 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import sys
+import os
+sys.path.append('src/audio/')
+from audio_insert import AudioInsert
+from audio_extract import AudioExtract
+from file import File
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(906, 828)
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
         self.tabWidget = QtWidgets.QTabWidget(self.centralwidget)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 901, 741))
         self.tabWidget.setObjectName("tabWidget")
+
         self.rc4_tab = QtWidgets.QWidget()
         self.rc4_tab.setObjectName("rc4_tab")
+
         self.title_encrypt = QtWidgets.QLabel(self.rc4_tab)
         self.title_encrypt.setGeometry(QtCore.QRect(10, 20, 341, 41))
+
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.title_encrypt.setFont(font)
         self.title_encrypt.setObjectName("title_encrypt")
+
         self.botton_encrypt_upload = QtWidgets.QPushButton(self.rc4_tab)
         self.botton_encrypt_upload.setGeometry(QtCore.QRect(10, 70, 88, 28))
         self.botton_encrypt_upload.setObjectName("botton_encrypt_upload")
+
         self.button_encrypt = QtWidgets.QPushButton(self.rc4_tab)
         self.button_encrypt.setGeometry(QtCore.QRect(110, 70, 88, 28))
         self.button_encrypt.setObjectName("button_encrypt")
+
         self.title_decrypt = QtWidgets.QLabel(self.rc4_tab)
         self.title_decrypt.setGeometry(QtCore.QRect(10, 370, 341, 41))
+
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.title_decrypt.setFont(font)
         self.title_decrypt.setObjectName("title_decrypt")
+
         self.button_decrypt_upload = QtWidgets.QPushButton(self.rc4_tab)
         self.button_decrypt_upload.setGeometry(QtCore.QRect(10, 430, 88, 28))
         self.button_decrypt_upload.setObjectName("button_decrypt_upload")
+
         self.button_decrypt = QtWidgets.QPushButton(self.rc4_tab)
         self.button_decrypt.setGeometry(QtCore.QRect(110, 430, 88, 28))
         self.button_decrypt.setObjectName("button_decrypt")
+        
         self.label_file_encrypt = QtWidgets.QLabel(self.rc4_tab)
         self.label_file_encrypt.setGeometry(QtCore.QRect(10, 100, 871, 16))
         self.label_file_encrypt.setText("")
         self.label_file_encrypt.setObjectName("label_file_encrypt")
+
         self.label_file_decrypt = QtWidgets.QLabel(self.rc4_tab)
         self.label_file_decrypt.setGeometry(QtCore.QRect(10, 460, 871, 16))
         self.label_file_decrypt.setText("")
         self.label_file_decrypt.setObjectName("label_file_decrypt")
+
         self.key_encrypt_label = QtWidgets.QLabel(self.rc4_tab)
         self.key_encrypt_label.setGeometry(QtCore.QRect(10, 140, 71, 21))
+
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.key_encrypt_label.setFont(font)
         self.key_encrypt_label.setObjectName("key_encrypt_label")
         self.key_decrypt_label = QtWidgets.QLabel(self.rc4_tab)
         self.key_decrypt_label.setGeometry(QtCore.QRect(10, 500, 71, 21))
+
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.key_decrypt_label.setFont(font)
         self.key_decrypt_label.setObjectName("key_decrypt_label")
+
         self.text_edit_encrypt = QtWidgets.QTextEdit(self.rc4_tab)
         self.text_edit_encrypt.setGeometry(QtCore.QRect(10, 170, 381, 96))
         self.text_edit_encrypt.setObjectName("text_edit_encrypt")
+
         self.text_edit_decrypt = QtWidgets.QTextEdit(self.rc4_tab)
         self.text_edit_decrypt.setGeometry(QtCore.QRect(10, 530, 381, 96))
         self.text_edit_decrypt.setObjectName("text_edit_decrypt")
+
         self.tabWidget.addTab(self.rc4_tab, "")
+
         self.video_tab = QtWidgets.QWidget()
         self.video_tab.setObjectName("video_tab")
+
         self.checkbox_random_image = QtWidgets.QCheckBox(self.video_tab)
         self.checkbox_random_image.setGeometry(QtCore.QRect(310, 60, 141, 24))
         self.checkbox_random_image.setObjectName("checkbox_random_image")
+
         self.title_extract_image = QtWidgets.QLabel(self.video_tab)
         self.title_extract_image.setGeometry(QtCore.QRect(10, 360, 341, 41))
+
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.title_extract_image.setFont(font)
         self.title_extract_image.setObjectName("title_extract_image")
+
         self.button_extract_image = QtWidgets.QPushButton(self.video_tab)
         self.button_extract_image.setGeometry(QtCore.QRect(550, 530, 88, 28))
         self.button_extract_image.setObjectName("button_extract_image")
+
         self.button_file_extract_image = QtWidgets.QPushButton(self.video_tab)
         self.button_file_extract_image.setGeometry(QtCore.QRect(10, 420, 88, 28))
         self.button_file_extract_image.setObjectName("button_file_extract_image")
+
         self.checkbox_encrypt_image = QtWidgets.QCheckBox(self.video_tab)
         self.checkbox_encrypt_image.setGeometry(QtCore.QRect(160, 60, 82, 24))
         self.checkbox_encrypt_image.setObjectName("checkbox_encrypt_image")
+
         self.label_file_extract_image = QtWidgets.QLabel(self.video_tab)
         self.label_file_extract_image.setGeometry(QtCore.QRect(10, 450, 871, 16))
         self.label_file_extract_image.setText("")
         self.label_file_extract_image.setObjectName("label_file_extract_image")
+
         self.title_insert_image = QtWidgets.QLabel(self.video_tab)
         self.title_insert_image.setGeometry(QtCore.QRect(10, 10, 341, 41))
+
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.title_insert_image.setFont(font)
         self.title_insert_image.setObjectName("title_insert_image")
+
         self.label_file_insert_image = QtWidgets.QLabel(self.video_tab)
         self.label_file_insert_image.setGeometry(QtCore.QRect(10, 90, 871, 16))
         self.label_file_insert_image.setText("")
         self.label_file_insert_image.setObjectName("label_file_insert_image")
+
         self.button_insert_image = QtWidgets.QPushButton(self.video_tab)
         self.button_insert_image.setGeometry(QtCore.QRect(540, 170, 88, 28))
         self.button_insert_image.setObjectName("button_insert_image")
+        self.button_insert_image.clicked.connect(self.openImage)
+
         self.button_file_insert_image = QtWidgets.QPushButton(self.video_tab)
         self.button_file_insert_image.setGeometry(QtCore.QRect(10, 60, 88, 28))
         self.button_file_insert_image.setObjectName("button_file_insert_image")
+        self.button_file_insert_image.clicked.connect(self.openImage)
+
         self.key_extract_label_image = QtWidgets.QLabel(self.video_tab)
         self.key_extract_label_image.setGeometry(QtCore.QRect(150, 500, 71, 21))
+
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.key_extract_label_image.setFont(font)
         self.key_extract_label_image.setObjectName("key_extract_label_image")
+
         self.key_insert_label_image = QtWidgets.QLabel(self.video_tab)
         self.key_insert_label_image.setGeometry(QtCore.QRect(150, 140, 71, 21))
+
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.key_insert_label_image.setFont(font)
         self.key_insert_label_image.setObjectName("key_insert_label_image")
+
         self.text_edit_insert_image = QtWidgets.QTextEdit(self.video_tab)
         self.text_edit_insert_image.setGeometry(QtCore.QRect(150, 170, 381, 96))
         self.text_edit_insert_image.setObjectName("text_edit_insert_image")
+
         self.text_edit_extract_image = QtWidgets.QTextEdit(self.video_tab)
         self.text_edit_extract_image.setGeometry(QtCore.QRect(150, 530, 381, 96))
         self.text_edit_extract_image.setObjectName("text_edit_extract_image")
+
         self.tabWidget.addTab(self.video_tab, "")
         self.audio_tab = QtWidgets.QWidget()
         self.audio_tab.setObjectName("audio_tab")
+
         self.title_extract_audio = QtWidgets.QLabel(self.audio_tab)
         self.title_extract_audio.setGeometry(QtCore.QRect(10, 360, 341, 41))
+
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.title_extract_audio.setFont(font)
         self.title_extract_audio.setObjectName("title_extract_audio")
+
         self.button_file_extract_audio = QtWidgets.QPushButton(self.audio_tab)
         self.button_file_extract_audio.setGeometry(QtCore.QRect(10, 420, 88, 28))
         self.button_file_extract_audio.setObjectName("button_file_extract_audio")
+        self.button_file_extract_audio.clicked.connect(self.openWav)
+
         self.button_file_insert_audio = QtWidgets.QPushButton(self.audio_tab)
         self.button_file_insert_audio.setGeometry(QtCore.QRect(10, 60, 88, 28))
         self.button_file_insert_audio.setObjectName("button_file_insert_audio")
+        self.button_file_insert_audio.clicked.connect(self.openWav)
+
+        self.button_file_insert_audio_message = QtWidgets.QPushButton(self.audio_tab)
+        self.button_file_insert_audio_message.setGeometry(QtCore.QRect(10, 90, 88, 28))
+        self.button_file_insert_audio_message.setObjectName("button_file_insert_audio")
+        self.button_file_insert_audio_message.clicked.connect(self.openfile)
+
         self.button_extract_audio = QtWidgets.QPushButton(self.audio_tab)
         self.button_extract_audio.setGeometry(QtCore.QRect(540, 530, 88, 28))
         self.button_extract_audio.setObjectName("button_extract_audio")
+
         self.title_insert_audio = QtWidgets.QLabel(self.audio_tab)
         self.title_insert_audio.setGeometry(QtCore.QRect(10, 10, 341, 41))
+
         font = QtGui.QFont()
         font.setPointSize(15)
+
         self.title_insert_audio.setFont(font)
         self.title_insert_audio.setObjectName("title_insert_audio")
+
         self.button_insert_audio = QtWidgets.QPushButton(self.audio_tab)
         self.button_insert_audio.setGeometry(QtCore.QRect(540, 170, 88, 28))
         self.button_insert_audio.setObjectName("button_insert_audio")
+        self.button_insert_audio.clicked.connect(self.audio_insert)
+
         self.label_file_insert_audio = QtWidgets.QLabel(self.audio_tab)
         self.label_file_insert_audio.setGeometry(QtCore.QRect(10, 90, 871, 16))
         self.label_file_insert_audio.setText("")
         self.label_file_insert_audio.setObjectName("label_file_insert_audio")
+
         self.label_file_extract_audio = QtWidgets.QLabel(self.audio_tab)
         self.label_file_extract_audio.setGeometry(QtCore.QRect(10, 450, 871, 16))
         self.label_file_extract_audio.setText("")
         self.label_file_extract_audio.setObjectName("label_file_extract_audio")
+
         self.checkbox_encrypt_audio = QtWidgets.QCheckBox(self.audio_tab)
         self.checkbox_encrypt_audio.setGeometry(QtCore.QRect(160, 60, 82, 24))
         self.checkbox_encrypt_audio.setObjectName("checkbox_encrypt_audio")
+
         self.checkbox_random_audio = QtWidgets.QCheckBox(self.audio_tab)
         self.checkbox_random_audio.setGeometry(QtCore.QRect(310, 60, 141, 24))
         self.checkbox_random_audio.setObjectName("checkbox_random_audio")
+
         self.key_insert_label_audio = QtWidgets.QLabel(self.audio_tab)
         self.key_insert_label_audio.setGeometry(QtCore.QRect(150, 140, 71, 21))
+
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.key_insert_label_audio.setFont(font)
         self.key_insert_label_audio.setObjectName("key_insert_label_audio")
+
         self.text_edit_extract_audio = QtWidgets.QTextEdit(self.audio_tab)
         self.text_edit_extract_audio.setGeometry(QtCore.QRect(150, 530, 381, 96))
         self.text_edit_extract_audio.setObjectName("text_edit_extract_audio")
+
         self.text_edit_insert_audio = QtWidgets.QTextEdit(self.audio_tab)
         self.text_edit_insert_audio.setGeometry(QtCore.QRect(150, 170, 381, 96))
         self.text_edit_insert_audio.setObjectName("text_edit_insert_audio")
+
         self.key_extract_label_audio = QtWidgets.QLabel(self.audio_tab)
         self.key_extract_label_audio.setGeometry(QtCore.QRect(150, 500, 71, 21))
+
         font = QtGui.QFont()
         font.setPointSize(14)
+
         self.key_extract_label_audio.setFont(font)
         self.key_extract_label_audio.setObjectName("key_extract_label_audio")
+
         self.tabWidget.addTab(self.audio_tab, "")
+
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(770, 750, 121, 16))
         self.label.setObjectName("label")
+
         MainWindow.setCentralWidget(self.centralwidget)
+
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
+
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(1)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -239,6 +329,57 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.audio_tab), _translate("MainWindow", "Audio"))
         self.label.setText(_translate("MainWindow", "IF4020 - Kriptografi"))
 
+    def openImage(self):
+        filename = QtWidgets.QFileDialog.getOpenFileName(parent=None, caption='Open File', directory=os.getcwd(), filter="Bitmap files (*.bmp)")
+        if filename[0]:
+            self.imagefile_dir = filename[0]
+            # print(self.imagefile_dir)
+
+            # with f:
+            #     data = f.read()
+            #     self.imagefile.setPlainText(data)
+
+    def openfile(self):
+        filename = QtWidgets.QFileDialog.getOpenFileName(parent=None, caption='Open File', directory=os.getcwd())
+        if filename[0]:
+            self.imagefile_dir = filename[0]
+
+    def openWav(self):
+        filename = QtWidgets.QFileDialog.getOpenFileName(parent=None, caption='Open File', directory=os.getcwd(), filter="Wave files (*.wav)")
+        if filename[0]:
+            self.wavfile_dir = filename[0]
+            # print(self.wav_file)
+
+            # with f:
+            #     data = f.read()
+            #     self.imagefile.setPlainText(data)
+    
+    def audio_insert(self):
+        key = self.text_edit_insert_audio.toPlainText()
+
+        if self.checkbox_random_audio.isChecked():
+            insert = Inserter(self.wavfile_dir, 'text.txt', key)
+            frame_modified = insert.insert_message(encrypt=False, randomize=True)
+
+            outfile_name = 'tes.wav'
+            outfile = File(outfile_name)
+            outfile.write_audio_file(frame_modified, insert.params)
+            pass
+        else :
+            print('seq audio insert')
+
+    def audio_extract(self):
+        key = self.text_edit_extract_audio.toPlainText()
+
+        extract = Extractor(self.wavfile_dir, key)
+        extract.extract_messages()
+
+        output_filename = "output/out" + "." + extract.extension
+        output_file = File(output_filename)
+        byte = extract.get_secret_message()
+        output_file.write_file(byte)
+        extract.parse_message()
+        
 
 if __name__ == "__main__":
     import sys

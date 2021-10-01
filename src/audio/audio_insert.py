@@ -4,8 +4,8 @@ import base64
 import sys
 sys.path.append('../')
 
-from audio.file import File
-from stream_cipher import StreamCipher
+# from src.audio.file import File
+# from src.stream_cipher import StreamCipher
 
 class Inserter:
 
