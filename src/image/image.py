@@ -44,13 +44,13 @@ class SteganoImage:
         original = np.array(list(self.im.getdata()), dtype="int8").reshape(self.height, self.width, self.n)
         temp = np.copy(self.stegoimage).astype("int8")
         difference = original - temp
-        return sqrt(1/(self.width * self.height) * np.sum(difference**2))   # Multiply with the sigmas
+        return sqrt(1 / (self.width * self.height) * np.sum(difference ** 2))  # Multiply with the sigmas
 
     def compute_psnr(self):
         if self.stegoimage is None:
             return None
         rms = self.compute_rms()
-        return 20 * log10(255/rms)
+        return 20 * log10(255 / rms)
 
     # Assumed encrypted first
     def hide_data_seq(self, data: bytes):
@@ -62,6 +62,8 @@ class SteganoImage:
             return
 
         img_data = list(self.im.getdata())  # Array of pixels (tuples)
+        if self.n == 1:
+            img_data = [(pixel,) for pixel in img_data]
         count = 0
         pixel = img_data[0]
         pixel_count = 0
@@ -82,7 +84,7 @@ class SteganoImage:
                 pixel = img_data[pixel_count]
                 count = 0
                 new_pix = []
-            flag = 1 if i == len_data-1 else 0
+            flag = 1 if i == len_data - 1 else 0
             new_pix.append(int(change_bit(pixel[count], flag)))
             count += 1
         if len(new_pix) != self.n:
@@ -103,13 +105,15 @@ class SteganoImage:
             return
 
         img_data = list(self.im.getdata())  # Array of pixels (tuples)
+        if self.n == 1:
+            img_data = [(pixel,) for pixel in img_data]
         count = 0
         pixel_count = {'i': 0, 'j': 0}
         explored = {}
         new_pix = []
 
         def count_index():
-            return pixel_count['j'] * (pixel_count['i']+1)
+            return pixel_count['j'] * (pixel_count['i'] + 1)
 
         def generate_coordinate():
             while True:
@@ -117,7 +121,7 @@ class SteganoImage:
                 pixel_count['j'] = random.randint(0, self.width)
                 if pixel_count['i'] in explored:
                     if pixel_count['j'] not in explored[pixel_count['i']]:
-                        explored[pixel_count['i']] = { pixel_count['j']: True }
+                        explored[pixel_count['i']] = {pixel_count['j']: True}
                         break
                 else:
                     explored[pixel_count['i']] = {pixel_count['j']: True}
@@ -155,6 +159,8 @@ class SteganoImage:
         data = b''
         bin_data = ''
         img_data = list(self.im.getdata())
+        if self.n == 1:
+            img_data = [(pixel,) for pixel in img_data]
 
         for pixel in img_data:
             for i in range(self.n):
@@ -173,6 +179,8 @@ class SteganoImage:
         data = b''
         bin_data = ''
         img_data = list(self.im.getdata())  # Array of pixels (tuples)
+        if self.n == 1:
+            img_data = [(pixel,) for pixel in img_data]
 
         pixel_count = {'i': 0, 'j': 0}
         explored = {}
@@ -207,16 +215,19 @@ class SteganoImage:
         self.data = data
 
     def save_stegoimage(self, path: str):
-        if not path.endswith('.'+self.format):
-            path += '.'+self.format
-        image = Image.fromarray(self.stegoimage, mode=self.im.mode)
+        if not path.endswith('.' + self.format):
+            path += '.' + self.format
+        if self.n == 1:
+            image = Image.fromarray(self.stegoimage.ravel().reshape(self.height, self.width), mode=self.im.mode)
+        else:
+            image = Image.fromarray(self.stegoimage, mode=self.im.mode)
         image.save(path, self.format)
 
     def save_data(self, path: str):
         with open(path, 'wb') as f:
             f.write(self.data)
 
-'''
+
 def test_hide_image():
     stegano = SteganoImage('./cow.png')
     with open('./unnamed.png', 'rb') as f:
@@ -276,6 +287,5 @@ def test_show_text_random():
 
 if __name__ == '__main__':
     test_hide_image_random()
-    test_show_image_random()    # test_show_image()
+    test_show_image_random()  # test_show_image()
     # check_file('./unnamed.png', './secret.png')
-'''
