@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Steganograpy App</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="rc4_tab">
      <attribute name="title">
@@ -144,17 +144,269 @@
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="key_encrypt_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>140</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Key:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="key_decrypt_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>500</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Key:</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="text_edit_encrypt">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>170</y>
+        <width>381</width>
+        <height>96</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="text_edit_decrypt">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>530</y>
+        <width>381</width>
+        <height>96</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="video_tab">
      <attribute name="title">
       <string>Image</string>
      </attribute>
+     <widget class="QCheckBox" name="checkbox_random_image">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>60</y>
+        <width>141</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Random Order</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="title_extract_image">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>360</y>
+        <width>341</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Extract Image</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_extract_image">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>530</y>
+        <width>88</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extract</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_file_extract_image">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>420</y>
+        <width>88</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkbox_encrypt_image">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>60</y>
+        <width>82</width>
+        <height>24</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Encrypt</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_file_extract_image">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>450</y>
+        <width>871</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="title_insert_image">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>341</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Insert Image</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_file_insert_image">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>90</y>
+        <width>871</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_insert_image">
+      <property name="geometry">
+       <rect>
+        <x>540</x>
+        <y>170</y>
+        <width>88</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Insert</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="button_file_insert_image">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>88</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select File</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="key_extract_label_image">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>500</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Key:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="key_insert_label_image">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>140</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Key:</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="text_edit_insert_image">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>170</y>
+        <width>381</width>
+        <height>96</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="text_edit_extract_image">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>530</y>
+        <width>381</width>
+        <height>96</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="audio_tab">
      <attribute name="title">
       <string>Audio</string>
      </attribute>
-     <widget class="QLabel" name="title_extract">
+     <widget class="QLabel" name="title_extract_audio">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -201,17 +453,17 @@
      <widget class="QPushButton" name="button_extract_audio">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>500</y>
+        <x>540</x>
+        <y>530</y>
         <width>88</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Decrypt</string>
+       <string>Extract</string>
       </property>
      </widget>
-     <widget class="QLabel" name="title_insert">
+     <widget class="QLabel" name="title_insert_audio">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -232,8 +484,8 @@
      <widget class="QPushButton" name="button_insert_audio">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>140</y>
+        <x>540</x>
+        <y>170</y>
         <width>88</width>
         <height>28</height>
        </rect>
@@ -242,7 +494,7 @@
        <string>Insert</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_file_insert">
+     <widget class="QLabel" name="label_file_insert_audio">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -255,7 +507,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_file_extract">
+     <widget class="QLabel" name="label_file_extract_audio">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -268,7 +520,7 @@
        <string/>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkbox_encrypt">
+     <widget class="QCheckBox" name="checkbox_encrypt_audio">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -281,7 +533,7 @@
        <string>Encrypt</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkbox_random">
+     <widget class="QCheckBox" name="checkbox_random_audio">
       <property name="geometry">
        <rect>
         <x>310</x>
@@ -292,6 +544,62 @@
       </property>
       <property name="text">
        <string>Random Order</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="key_insert_label_audio">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>140</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Key:</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="text_edit_extract_audio">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>530</y>
+        <width>381</width>
+        <height>96</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="text_edit_insert_audio">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>170</y>
+        <width>381</width>
+        <height>96</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="key_extract_label_audio">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>500</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Key:</string>
       </property>
      </widget>
     </widget>
@@ -309,16 +617,6 @@
      <string>IF4020 - Kriptografi</string>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>906</width>
-     <height>24</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
