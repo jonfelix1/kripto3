@@ -33,8 +33,8 @@ class SteganoImage:
     def encrypt(self, encrypt):
         if encrypt:
             bit = 1
-            sc = StreamCipher()
-            self.message = bytes(sc.encrypt_logic(self.key, self.message), 'utf-8')
+            # sc = StreamCipher()
+            # self.message = bytes(sc.encrypt_logic(self.key, self.message), 'utf-8')
         else:
             bit = 0
         self.pixels[0] = helper.change_bit(self.pixels[0], bit)
@@ -57,9 +57,10 @@ class SteganoImage:
             self.show_data_seq()
 
         if encrypt:
+            pass
             # Decrypt with StreamCipher
-            sc = StreamCipher()
-            self.data = sc.decrypt(self.key, self.data.decode('utf-8'))
+            # sc = StreamCipher()
+            # self.data = sc.decrypt(self.key, self.data.decode('utf-8'))
 
     def compute_payload(self):
         return self.width * self.height * self.n  # In bits
