@@ -1,9 +1,12 @@
 import wave
 import random
 import base64
+import sys
+sys.path.append('../')
 
 from file import File
-# from src.helper.cipher import decrypt_vigenere
+from stream_cipher import StreamCipher
+
 
 class Extractor:
     def __init__(self, file_dir, key):
@@ -44,20 +47,22 @@ class Extractor:
                 idx += 1
 
         if encrypted:
-            # self.string_message = decrypt_vigenere(message, self.key)
-            pass
+            sc = StreamCipher()
+            # print(message)
+            # self.message_string = sc.manual_decrypt(self.key, message)
+            self.message_string = message
         else:
-            self.string_message = message
+            self.message_string = message
 
     def parse_message(self):
-        message_info = self.string_message.split("[[")
+        message_info = self.message_string.split("[[")
 
         self.message_length = int(message_info[0])
         self.extension = message_info[1]
 
     def get_secret_message(self):
         init = len(str(self.message_length)) + len(str(self.extension)) + 2
-        decoded_bytes = self.string_message[init:init + self.message_length]
+        decoded_bytes = self.message_string[init:init + self.message_length]
         bytes_file = decoded_bytes.encode('utf-8')
 
         return base64.b64decode(bytes_file)

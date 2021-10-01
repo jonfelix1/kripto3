@@ -1,11 +1,11 @@
-
 import wave
 import random
 import base64
+import sys
+sys.path.append('../')
 
-from file import File
-# from src.helper.cipher import encrypt_vigenere
-
+from audio.file import File
+from stream_cipher import StreamCipher
 
 class Inserter:
 
@@ -31,7 +31,9 @@ class Inserter:
     def encrypt_message(self, encrypt, key):
         if encrypt:
             sign = 1
-            self.message_string = ""  # encrypt
+            sc = StreamCipher()
+            self.message_string = sc.manual_encrypt(key, self.message_string)
+            # print(self.message_string)
         else:
             sign = 0
 
@@ -59,10 +61,10 @@ class Inserter:
     def insert_message(self, encrypt=False, randomize=False):
         self.seed = self.calc_seed()
 
+        self.encrypt_message(encrypt, self.key)
         message_length = str(len(self.message) + len(self.extension) + 2)
 
         self.message_string = message_length + '[[' + self.extension + '[[' + self.message
-        self.encrypt_message(encrypt, self.key)
 
         if 0.9 * len(self.frame) // 8 < len(self.message_string):
             raise ValueError("Ukuran pesan terlalu besar untuk audio")
@@ -78,7 +80,7 @@ class Inserter:
 
 if __name__ == "__main__":
     insert = Inserter('../../sample/audio/suichan-wa-waarukunai-yo-nee.wav', 'text.txt', 'hoshimachi')
-    frame_modified = insert.insert_message(randomize=True)
+    frame_modified = insert.insert_message(encrypt=True,randomize=False)
 
     outfile_name = 'tes.wav'
     outfile = File(outfile_name)
