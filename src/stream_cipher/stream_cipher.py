@@ -61,7 +61,6 @@ class StreamCipher:
             res.append(val)
         return ''.join(res)
 
-
     def encrypt(self, key, plaintext):
         plaintext = [ord(c) for c in plaintext]
         return self.encrypt_logic(key, plaintext)

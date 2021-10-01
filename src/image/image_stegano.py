@@ -4,7 +4,7 @@ from math import log10, sqrt
 import numpy as np
 import random
 import helper
-import time
+from src.stream_cipher.stream_cipher import StreamCipher
 
 
 class SteganoImage:
@@ -32,7 +32,8 @@ class SteganoImage:
     def encrypt(self, encrypt):
         if encrypt:
             bit = 1
-            # StreamCipher
+            # sc = StreamCipher()
+            # self.message = sc.encrypt(self.key, self.message)
         else:
             bit = 0
         self.pixels[0] = helper.change_bit(self.pixels[0], bit)
@@ -171,11 +172,10 @@ class SteganoImage:
 
 
 if __name__ == '__main__':
-    s = SteganoImage('./flower.bmp', './message.txt', 'thisisakey')
-    s.insert(encrypt=False, randomized=True)
-    print(s.compute_psnr())
+    s = SteganoImage('./cow.png', './unnamed.png', 'thisisakey')
+    s.insert(encrypt=True, randomized=True)
     s.save_stegoimage('./inserted')
-    t = SteganoImage('./inserted.bmp', './message.txt', 'thisisakey')
+    t = SteganoImage('./inserted.png', './unnamed.png', 'thisisakey')
     t.extract()
-    t.save_data('./secret.txt')
+    t.save_data('./secret.png')
     # check_file('./unnamed.png', './secret.png')
