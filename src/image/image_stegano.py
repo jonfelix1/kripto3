@@ -35,20 +35,21 @@ class SteganoImage:
             # StreamCipher
         else:
             bit = 0
-        helper.change_bit(self.pixels[0], bit)
+        self.pixels[0] = helper.change_bit(self.pixels[0], bit)
 
     def insert(self, encrypt=False, randomized=False):
         self.encrypt(encrypt)
         if randomized:
-            helper.change_bit(self.pixels[1], 1)
+            self.pixels[1] = helper.change_bit(self.pixels[1], 1)
             self.hide_data_random()
         else:
-            helper.change_bit(self.pixels[1], 0)
+            self.pixels[1] = helper.change_bit(self.pixels[1], 0)
             self.hide_data_seq()
 
     def extract(self):
         encrypt = self.pixels[0] & 1
         randomized = self.pixels[1] & 1
+        print(randomized)
         if randomized:
             self.show_data_random()
         else:
@@ -75,6 +76,7 @@ class SteganoImage:
 
     # DONE
     def hide_data_seq(self):
+        print("Hide seq")
         bin_data = [format(b, '08b') for b in self.message]  # Bytes or bytearray
         len_data = len(bin_data)  # How many bytes
         total_len = len_data * 9  # File length with delimiters
@@ -93,6 +95,7 @@ class SteganoImage:
         self.stegoimage = new_pix
 
     def hide_data_random(self):
+        print("Hide random")
         random.seed(self.seed)
         bin_data = [format(b, '08b') for b in self.message]  # Bytes or bytearray
         len_data = len(bin_data)  # How many bytes
@@ -101,19 +104,26 @@ class SteganoImage:
             print("File is too big")
             return
 
-        explored = []
+        random_pixels = list(range(2, self.width * self.height))
+        random.shuffle(random_pixels)
+
         new_pix = np.copy(self.pixels)
+
+        count = 0
         for i, byte in enumerate(bin_data):
             for bit in byte:
-                new_pix[i * 9 + 2 + count] = int(helper.change_bit(self.pixels[i * 9 + 2 + count], int(bit)))
+                pix = random_pixels[i*9+count]
+                new_pix[pix] = int(helper.change_bit(self.pixels[pix], int(bit)))
                 count += 1
+            pix = random_pixels[i * 9 + count]
             flag = 1 if i == len_data - 1 else 0
-            new_pix[i * 9 + 2 + count] = int(helper.change_bit(self.pixels[i * 9 + 2 + count], flag))
+            new_pix[pix] = int(helper.change_bit(self.pixels[pix], flag))
             count = 0
-        self.stegoimage = new_pix
+        self.stegoimage = np.copy(new_pix)
 
     # DONE
     def show_data_seq(self):
+        print("Show seq")
         data = b''
         bin_data = ''
         for i in range(2, len(self.pixels)):
@@ -128,36 +138,15 @@ class SteganoImage:
         self.data = data
 
     def show_data_random(self):
+        print("Show random")
         random.seed(self.seed)
         data = b''
         bin_data = ''
-        img_data = list(self.im.getdata())  # Array of pixels (tuples)
-        if self.n == 1:
-            img_data = [(pixel,) for pixel in img_data]
 
-        pixel_count = {'i': 0, 'j': 0}
-        explored = {}
-
-        def count_index():
-            return pixel_count['j'] * (pixel_count['i'] + 1)
-
-        def generate_coordinate():
-            while True:
-                pixel_count['i'] = random.randint(0, self.height)
-                pixel_count['j'] = random.randint(0, self.width)
-                if pixel_count['i'] in explored:
-                    if pixel_count['j'] not in explored[pixel_count['i']]:
-                        explored[pixel_count['i']] = {pixel_count['j']: True}
-                        break
-                else:
-                    explored[pixel_count['i']] = {pixel_count['j']: True}
-                    break
-            return img_data[count_index()]
-
-        while True:
-            pixel = generate_coordinate()
-            for i in range(self.n):
-                bin_data += str(pixel[i] & 1)
+        random_pixels = list(range(2, self.width*self.height))
+        random.shuffle(random_pixels)
+        for pixel in random_pixels:
+            bin_data += str(self.pixels[pixel] & 1)
             if len(bin_data) // 9:
                 char = int.to_bytes(int(bin_data[:8], 2), 1, byteorder='big')
                 flag = bin_data[8]
@@ -183,7 +172,7 @@ class SteganoImage:
 
 if __name__ == '__main__':
     s = SteganoImage('./flower.bmp', './message.txt', 'thisisakey')
-    s.insert(encrypt=False, randomized=False)
+    s.insert(encrypt=False, randomized=True)
     print(s.compute_psnr())
     s.save_stegoimage('./inserted')
     t = SteganoImage('./inserted.bmp', './message.txt', 'thisisakey')
