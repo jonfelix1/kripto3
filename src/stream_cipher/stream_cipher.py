@@ -65,7 +65,6 @@ class StreamCipher:
         plaintext = [ord(c) for c in plaintext]
         return self.encrypt_logic(key, plaintext)
 
-
     def decrypt(self, key, ciphertext):
         ciphertext = codecs.decode(ciphertext, 'hex_codec')
         res = self.encrypt_logic(key, ciphertext)
@@ -96,7 +95,7 @@ class StreamCipher:
 if __name__ == '__main__':
     sc = StreamCipher()
 
-    a = sc.manual_encrypt('key','lalalala')
+    a = sc.manual_encrypt('key', 'lalalala')
     print(a) 
     print(sc.manual_decrypt('key',a)) 
        

@@ -11,10 +11,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 import os
-sys.path.append('src/audio/')
-from audio_insert import AudioInsert
-from audio_extract import AudioExtract
-from file import File
+# sys.path.append('src/audio/')
+from src.audio.audio_insert import Inserter
+from src.audio.audio_extract import Extractor
+from src.audio.file import File
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):

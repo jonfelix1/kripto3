@@ -18,6 +18,7 @@ class SteganoImage:
 
         with open(message_path, 'rb') as f:
             self.message = f.read()
+        self.message_path = message_path
         self.key = key
 
         self.data = b''
@@ -32,8 +33,8 @@ class SteganoImage:
     def encrypt(self, encrypt):
         if encrypt:
             bit = 1
-            # sc = StreamCipher()
-            # self.message = sc.encrypt(self.key, self.message)
+            sc = StreamCipher()
+            self.message = bytes(sc.encrypt_logic(self.key, self.message), 'utf-8')
         else:
             bit = 0
         self.pixels[0] = helper.change_bit(self.pixels[0], bit)
@@ -50,7 +51,6 @@ class SteganoImage:
     def extract(self):
         encrypt = self.pixels[0] & 1
         randomized = self.pixels[1] & 1
-        print(randomized)
         if randomized:
             self.show_data_random()
         else:
@@ -58,7 +58,8 @@ class SteganoImage:
 
         if encrypt:
             # Decrypt with StreamCipher
-            pass
+            sc = StreamCipher()
+            self.data = sc.decrypt(self.key, self.data.decode('utf-8'))
 
     def compute_payload(self):
         return self.width * self.height * self.n  # In bits
